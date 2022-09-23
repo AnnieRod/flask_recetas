@@ -1,4 +1,4 @@
-from flask import request, redirect, render_template,session
+from flask import request, redirect, render_template,session, flash
 
 from flask_app import app
 
@@ -36,10 +36,9 @@ def create_recipe():
 def show_recipe(id):
     if "user_id" not in session:
         return redirect("/")
-    data = {
-        "id" : id
-    }
-    return render_template("show.html", recipe = Recipe.get_recipe(data))
+    recipe = Recipe.get_recipe(id)[0]
+    recipe.date_cooked = recipe.date_cooked.strftime('%Y-%m-%d')
+    return render_template("show.html", recipe = recipe)
 
 ##Editar o actualiza receta ARREGLA TODO EL ID (NO logra editar valores y no muestra previos)
 @app.route("/recipes/edit/<int:id>")
@@ -49,10 +48,8 @@ def edit_template(id):
     recipe = Recipe.get_recipe(id)[0]
     return render_template("edit.html", recipe = recipe)
 
-@app.route("/update", methods = ['POST'])
+@app.route("/update/<int:id>", methods = ['POST'])
 def update_info(id):
-    if not Recipe.validate_recipe(request.form):
-        return redirect("recipes/edit/<int:id>")
     updated_recipe = {
             'id' : id,
             'name': request.form['name'],
@@ -61,6 +58,9 @@ def update_info(id):
             'date_cooked': request.form['date_cooked'],
             'under' : request.form['under'],
     }
+    if not Recipe.validate_recipe(request.form):
+        flash("Try again, recipe wasn't updated!", "recipe")
+        return redirect(f"/recipes/edit/{id}")
     Recipe.update_recipe(updated_recipe)
     return redirect("/recipes")
 

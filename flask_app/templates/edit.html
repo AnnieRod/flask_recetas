@@ -20,7 +20,7 @@
     </div>
     <div class="d-flex justify-content-around">
         <div class="mt-2 w-auto p-4 bg-light text-dark">
-            <form action="/update" method="post">
+            <form action="/update/{{ recipe['id'] }}" method="post">
                 {% with messages = get_flashed_messages(category_filter=['recipe']) %}
                     {% if messages %}
                         {% for message in messages %}

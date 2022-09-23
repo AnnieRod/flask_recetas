@@ -24,7 +24,7 @@
             <li><strong>Description:</strong> {{ recipe.description }}</li>
             <li><strong>Under 30 Minutes?:</strong>{% if recipe.under == 1 %} Yes {% else %} No {% endif %}</li>
             <li><strong>Instructions:</strong>{{ recipe.instructions }}</li>
-            <li><strong>Date Made:</strong>{{ recipe.date_cooked.strftime('%m/%d/%Y') }} </li>
+            <li><strong>Date Made:</strong>{{ recipe.date_cooked}} </li>
         </ul>
     </div>
 </body>
