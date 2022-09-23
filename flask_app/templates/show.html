@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Recipe details</title>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-around mt-5">
+            <h1 class="text-info">Welcome, {{ session['user_name'] }}</h1>
+            <div>
+                <a class= "text-dark mr-5" href="/recipes">back to recipes</a>
+                <a class= "text-dark" href="/logout">logout</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around mt-3">
+            <h2 class="text-dark">{{ recipe.name }}</h2>
+            <h3 class="text-dark">Posted by: {{ recipe.user_name }}</h3>
+        </div>
+        <ul class= "bg-light mt-5 ml-5 w-100">           
+            <li><strong>Description:</strong> {{ recipe.description }}</li>
+            <li><strong>Under 30 Minutes?:</strong>{% if recipe.under == 1 %} Yes {% else %} No {% endif %}</li>
+            <li><strong>Instructions:</strong>{{ recipe.instructions }}</li>
+            <li><strong>Date Made:</strong>{{ recipe.date_cooked.strftime('%m/%d/%Y') }} </li>
+        </ul>
+    </div>
+</body>
+</html>
